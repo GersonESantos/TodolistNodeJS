@@ -3,8 +3,9 @@ const  moongoose = require('mongoose');
 const connectToDb =  () => 
     {
 
-        // moongoose.connect('mongodb+srv://gebhsantos:A3YG8lXShNUS7FUw@users.vnnwl.mongodb.net/users?retryWrites=true&w=majority&appName=users"')
-        moongoose.connect('mongodb+srv://gebhsantos_db_user:VmuAFwV9VaA8N7Xi@todolist.1djcmmb.mongodb.net/?appName=todolist')
+        
+        moongoose
+        .connect(process.env.DB_URI)
         .then(() => {
             console.log('Connectou com sucesso to MongoDB');
         }).catch((err) => {
