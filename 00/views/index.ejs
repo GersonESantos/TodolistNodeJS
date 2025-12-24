@@ -7,17 +7,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="/create" method="post">
+    <header>
+        <form action="/create" method="post">
         <input type="text" name="task" id="task" placeholder="Insira uma tarefa" value="">
         <button type="submit">Adicionar</button></button>
     </form>
-    <ul>
+    </header>
+    <section id="tasks">
+        <ul>
         <% tasksList.forEach((task) =>{ %>
         <li>
             <%= task.task %> | <%= task.date.toLocaleDateString('pt-BR') %>
+            <a href="/editar/<%= task._id %>">Editar</a>
+            <a href="/deletar/<%= task._id %>">Deletar</a>
         </li>
         <% })  %>
     </ul>
+    </section>
 </body>
     <script src="script.js"></script>
 </html>
