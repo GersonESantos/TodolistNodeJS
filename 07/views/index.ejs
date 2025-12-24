@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <% if (!task) {%>
+        <form action="/create" method="post">
+            <input type="text" name="task" id="task" placeholder="Insira uma tarefa" value="">
+            <button type="submit">Adicionar</button></button>
+        </form>
+        <% } else { %>
+        
+        <form action="/updateOneTask/<%= task.task_id %>" method="post">
+            <input type="text" name="task" id="task"  value="<%= task.task %>"> 
+            <button type="submit">Atalizar</button></button>
+        </form>
+        <% } %>
+    </header>
+    <section id="tasks">
+        <ul>
+        <% tasksList.forEach((task) =>{ %>
+        <li>
+            <%= task.task %> | <%= task.date.toLocaleDateString('pt-BR') %>
+            <a href="/getById/<%= task._id %>">Editar</a>
+            <a href="/deletar/<%= task._id %>">Deletar</a>
+        </li>
+        <% })  %>
+    </ul>
+    </section>
+</body>
+    <script src="script.js"></script>
+</html>
