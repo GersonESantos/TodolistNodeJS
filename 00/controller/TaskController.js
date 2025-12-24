@@ -32,15 +32,42 @@ const createTask = async(req, res) =>
             
         }    
     } 
+
+
+
     const getById = async (req, res) => 
     {
-        const task = await Task.findOne(req.params.id);
-        const tasksList = await Task.find();
-        res.render('index', { task, tasksList: [] }); 
-    }
+        try 
+        {
+
+            const task = await Task.findOne({ _id: req.params.id });
+            const tasksList = await Task.find();
+            res.render('index', { task, tasksList: [] }); 
+        } 
+        catch (err) 
+        {
+            res.status(500).send({ error: err.message});
+        }
+
+
+     }
+
+const updateOneTask = async (req, res) => 
+{
+    try {
+        const task = req.body;
+        await Task.updateOneTask({ _id: req.params.id }, task);
+        res.redirect('/');
+    } catch (err) {
+        return res.status(500).send({ error: err.message});
+    }     
+}   
+
 module.exports = {
     getAllTasks,
     createTask,
-    getById
+    getById,
+    updateOneTask
+
 
 };
