@@ -56,7 +56,7 @@ const updateOneTask = async (req, res) =>
 {
     try {
         const task = req.body;
-        await updateOneTask({ _id: req.params.id }, task);
+        await Task.updateOneTask({ _id: req.params.id }, task);
         res.redirect('/');
     } catch (err) {
         return res.status(500).send({ error: err.message});
