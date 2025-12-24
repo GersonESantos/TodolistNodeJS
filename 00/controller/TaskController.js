@@ -1,10 +1,11 @@
+const { get } = require('mongoose');
 const Task = require('../models/Task');
 const getAllTasks = async (req, res) => 
     {
         try 
         {
             const tasksList = await Task.find();
-            return res.render('index', { tasksList });
+            return res.render('index', { tasksList, task: {} });
         } 
         catch (err) 
         {
@@ -18,6 +19,9 @@ const createTask = async(req, res) =>
         {
             return res.redirect('/'); 
         }
+
+
+
         try {
             await  Task.create(task);
             return res.redirect('/');
@@ -28,8 +32,15 @@ const createTask = async(req, res) =>
             
         }    
     } 
+    const getById = async (req, res) => 
+    {
+        const task = await Task.findOne(req.params.id);
+        const tasksList = await Task.find();
+        res.render('index', { task, tasksList: [] }); 
+    }
 module.exports = {
     getAllTasks,
-    createTask
+    createTask,
+    getById
 
 };
