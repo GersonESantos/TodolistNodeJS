@@ -1,11 +1,10 @@
-const { get } = require('mongoose');
 const Task = require('../models/Task');
 const getAllTasks = async (req, res) => 
     {
         try 
         {
             const tasksList = await Task.find();
-            return res.render('index', { tasksList, task: {} });
+            return res.render('index', { tasksList, task: null });
         } 
         catch (err) 
         {
@@ -26,8 +25,8 @@ const createTask = async(req, res) =>
             await  Task.create(task);
             return res.redirect('/');
         }
-        catch (error) {
-            console.error('Error creating task:', error);
+        catch (err) {
+            console.error('Error creating task:', err);
             return res.status(500).send({ error: err.message});
             
         }    
@@ -42,7 +41,7 @@ const createTask = async(req, res) =>
 
             const task = await Task.findOne({ _id: req.params.id });
             const tasksList = await Task.find();
-            res.render('index', { task, tasksList: [] }); 
+            res.render('index', { task, tasksList }); 
         } 
         catch (err) 
         {
@@ -52,16 +51,21 @@ const createTask = async(req, res) =>
 
      }
 
-const updateOneTask = async (req, res) => 
-{
-    try {
-        const task = req.body;
-        await Task.updateOneTask({ _id: req.params.id }, task);
-        res.redirect('/');
-    } catch (err) {
-        return res.status(500).send({ error: err.message});
-    }     
-}   
+const updateOneTask = async (req, res) => {
+  try {
+    const task = req.body;
+    await Task.updateOne({ _id: req.params.id }, task);
+    res.redirect("/");
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+};
+
+
+
+
+
+
 
 module.exports = {
     getAllTasks,
