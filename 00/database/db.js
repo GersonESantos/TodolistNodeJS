@@ -1,18 +1,13 @@
-const  moongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const connectToDb =  () => 
-    {
+const connectToDb = () => {
+  mongoose
+    .connect(process.env.DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => console.log("MongoDB Atlas CONECTADO!"))
+    .catch((err) => console.log(err));
+};
 
-        
-        moongoose
-        .connect(process.env.DB_URI)
-        .then(() => {
-            console.log('Connectou com sucesso to MongoDB');
-        }).catch((err) => {
-            console.error('Error connecting to MongoDB:', err);
-        });
-    }
-
-
-
-module.exports = connectToDb; 
+module.exports = connectToDb;
