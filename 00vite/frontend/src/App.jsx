@@ -40,32 +40,34 @@ const Todo = () => {
     };
 
     return (
-        <div style={{ marginTop: "20px" }}>
+        <div className="app-container">
             <h2>Todo List</h2>
-            <div>
+            <div className="input-group">
                 <input
+                    className="todo-input"
                     placeholder={editTaskId ? "Edit Task Name" : "Enter Task Name"}
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                 />
-                <button onClick={handleAddOrSaveTask}>
+                <button className="add-btn" onClick={handleAddOrSaveTask}>
                     {editTaskId ? "Save Task" : "Add Task"}
                 </button>
             </div>
 
-            <div>
+            <div className="todo-list">
                 {tasks.map((task) => (
-                    <div key={task.id} style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                        <span style={{ textDecoration: task.isCompleted ? "line-through" : "none" }}>
-                            {task.text}
-                        </span>
-                        <button onClick={() => handleToggleComplete(task.id)}>
+                    <div
+                        key={task.id}
+                        className={`todo-item${task.isCompleted ? " completed" : ""}`}
+                    >
+                        <span>{task.text}</span>
+                        <button className="complete-btn" onClick={() => handleToggleComplete(task.id)}>
                             {task.isCompleted ? "Undo" : "Completed Task"}
                         </button>
-                        <button onClick={() => handleEditTask(task.id)} disabled={task.isCompleted}>
+                        <button className="edit-btn" onClick={() => handleEditTask(task.id)} disabled={task.isCompleted}>
                             Edit
                         </button>
-                        <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                        <button className="delete-btn" onClick={() => handleDeleteTask(task.id)}>Delete</button>
                     </div>
                 ))}
             </div>
