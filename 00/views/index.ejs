@@ -26,12 +26,24 @@
         <% tasksList.forEach((task) =>{ %>
         <li>
             <%= task.task %> | <%= task.date.toLocaleDateString('pt-BR') %>
-            <a href="/getById/<%= task._id %>">Editar</a>
-            <a href="/deletar/<%= task._id %>">Deletar</a>
+            <a href="/getById/<%= task._id %>/update">Editar</a>
+            <a href="/getById/<%= task._id %>/delete">Deletar</a>
         </li>
         <% })  %>
     </ul>
     </section>
+    <% if (taskDelete != null) {%>
+    <section id="modal">
+        <div id="card">
+            <a href="/"></a>
+            <h2>Confirmção de exclusão</h2>
+            <hr>
+            <p>Tem certeza que deseja excluir esta tarefa: <strong><%= taskDelete.task %></strong>?</p>
+            <a href="/">Não</a>
+            <a href="/deleteTask/<%= taskDelete._id %>">Sim</a>
+        </div>
+    </section>
+    % } %>
 </body>
     <script src="script.js"></script>
 </html>
